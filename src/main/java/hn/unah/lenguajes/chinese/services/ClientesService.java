@@ -1,12 +1,9 @@
 package hn.unah.lenguajes.chinese.services;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import hn.unah.lenguajes.chinese.models.Cliente;
 
-@Service
+import java.util.List;
+
 public interface ClientesService {
     
     Cliente guardarCliente(Cliente cliente);

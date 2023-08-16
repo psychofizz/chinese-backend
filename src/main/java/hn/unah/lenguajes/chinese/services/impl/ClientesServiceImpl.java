@@ -1,24 +1,33 @@
 package hn.unah.lenguajes.chinese.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import hn.unah.lenguajes.chinese.models.Cliente;
+import hn.unah.lenguajes.chinese.models.Personas;
+import hn.unah.lenguajes.chinese.repositories.ClientesRepository;
+import hn.unah.lenguajes.chinese.repositories.PersonasRepository;
+import hn.unah.lenguajes.chinese.services.ClientesService;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import hn.unah.lenguajes.chinese.models.Cliente;
-import hn.unah.lenguajes.chinese.repositories.ClientesRepository;
-import hn.unah.lenguajes.chinese.services.ClientesService;
-
-@Component
-
+@Service
 public class ClientesServiceImpl implements ClientesService {
-   
+
+    private final PersonasRepository personaRepository;
+    private final ClientesRepository clientesRepository;
+
     @Autowired
-    private ClientesRepository clientesRepository;
+    public ClientesServiceImpl(PersonasRepository personaRepository, ClientesRepository clientesRepository) {
+        this.personaRepository = personaRepository;
+        this.clientesRepository = clientesRepository;
+    }
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
+        Personas personaGuardada = personaRepository.save(cliente);
+        cliente.setId(personaGuardada.getId());
         return clientesRepository.save(cliente);
     }
 
@@ -42,6 +51,4 @@ public class ClientesServiceImpl implements ClientesService {
     public List<Cliente> regresarTodo() {
         return (List<Cliente>) clientesRepository.findAll();
     }
-
-
 }
