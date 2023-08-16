@@ -75,6 +75,11 @@ El backend debe:
 marcar la orden como cocinada pero no entregada. 
 adicionalmente debera restar 1pt de stock a cada ingrediente que esta en el item de menu.
 
+PUT /set-orden-facturada
+El backend debe: 
+Marcar la orden como pagada.
+Generar la factura.
+
 --SERVICIO DE MESA
 
 GET /get-ordenes-entregables
@@ -98,3 +103,26 @@ Mesas.
 
 --menu
 Se habalra de este mas tarde. 
+
+
+DEFINIR QUE TABLAS NECESITAN CRUD
+
+Cliente POST para registro, GET para Login. 
+Empleados POST para registro por Tipo_empleado = admin, GET para login. 
+
+Estado_orden (Recibido, En Curso, Entregable, Entregado A Mesa, Facturado)
+Estados_mesa
+Factura GET por correo la factura mas reciente, GET ALL por correo. 
+
+
+Ingredientes CRUD, 5 operaciones. GET ID GET ALL, PUT, POST, DELETE
+Menu_ingredientes CRUD GET ID GET ALL, PUT, POST, DELETE
+Menus CRUD GET ID GET ALL, PUT, POST, DELETE
+Mesas CRUD GET estado-mesa, GET ALL, GET ID, PUT, POST, DELETE
+
+
+Orden Lo creado arriba, GET ALL, GET ID, DELETE-especializado-devolucion, DELETE
+Tipo_empleados (Chef, Mesero, Admin, Delivery)
+Tipo_pago (Efectivo, Tarjeta, Paypal)
+
+
