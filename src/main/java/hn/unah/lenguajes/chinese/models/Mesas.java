@@ -2,6 +2,7 @@ package hn.unah.lenguajes.chinese.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Mesas {
     private int id;
     private int capacidad;
 
-    @ManyToOne
-    @JoinColumn(name = "id_estado_mesa")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_estado_mesa", referencedColumnName = "id")
     private Estados_mesa estadoMesa;
 }

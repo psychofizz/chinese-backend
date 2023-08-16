@@ -1,5 +1,6 @@
 package hn.unah.lenguajes.chinese.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,8 +18,8 @@ public class Cliente {
     @Id
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Personas personas;
 
     private boolean cliente_preferencial;

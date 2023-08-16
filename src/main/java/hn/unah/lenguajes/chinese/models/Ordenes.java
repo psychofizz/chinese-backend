@@ -1,10 +1,14 @@
 package hn.unah.lenguajes.chinese.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -21,23 +25,27 @@ public class Ordenes {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_chef")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_chef", referencedColumnName = "id")
     private Empleados chef;
 
-    @ManyToOne
-    @JoinColumn(name = "id_mesero")
-    private Empleados mesero;
-
-    @ManyToOne
-    @JoinColumn(name = "id_mesa")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_mesa", referencedColumnName = "id")
     private Mesas mesa;
 
-    @ManyToOne
-    @JoinColumn(name = "id_estado_orden")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_estado_orden", referencedColumnName = "id")
     private Estado_orden estado_orden;
+
+    @Column(name = "fecha_creada")
+    private LocalDateTime fechaCreada;
+
+    @PrePersist
+    protected void onCreate() {
+        fechaCreada = LocalDateTime.now();
+    }
 }
