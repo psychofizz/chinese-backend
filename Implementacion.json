@@ -1,0 +1,100 @@
+Cliente hace registro - POST de nuevo cliente. 
+
+Cliente hace login - GET con body 
+
+{
+"correo" : "example@example.com",
+"contrasena" : "12345"
+}
+Retorna todos los detalles del cliente. 
+
+Cliente puede empezar el proceso de hacer una nueva orden y ver que mesa reservar para cuantas personas.
+El cliente comienza el proceso viendo que mesas estan libres en el restaurante. 
+GET /get-mesas-libres
+Selecciona esta mesa, el frontend guarda esta mesa seleccionada.
+
+Va a una siguente pantalla. 
+En esta pantalla se van a ver los items del menu. 
+
+GET /get-menu-items
+    Debe retornar un json con todos los items del menu
+    Estos seran guardados en el frontend por un carrito cuando sean agregados. 
+    CHECK: Verificar que el stock del item es mayor a 0. sino se 
+
+Va a la siguiente pantalla. 
+Una vez aqui. 
+El cliente puede ver la mesa seleccionada y los items del menu. 
+Aqui podra crear finalmente la orden con sus ordenes del menu. 
+
+POST /orden
+la orden contendra en el body 
+{
+    "email-cliente",
+    "id-mesa-seleccionada"
+    "menu-item{
+        id
+        cantidad
+    }
+    "menu-item{
+        id
+        cantidad
+    }
+}
+
+
+El backend recibiendo esto asignara 2 empleados, 1 chef y un mesero. 
+Debe marcar la mesa como no disponible con un UPDATE y agregarla a la orden.
+Y debe poner el estado de la orden como recibida. 
+Una vez haga esto puede insertar la orden a la base de datos.
+
+Una vez creada la orden esta misma se usara ahora para crear los items de la orden. 
+Ya que dependen que la orden exista primero. 
+Necesitara un poco de pensar como sera integrado eso en el backend.
+
+La orden se encuentra ahora recibida. y los items del menu han sido agregados.
+.save
+
+--EL chef
+El chef hara login por credenciales de correo y contra. 
+
+Pantalla principal. 
+El chef podra ver las ordenes asignadas. 
+GET /ordenes-chef/
+se mandara en el body 
+{
+    "PK del empleado"
+}
+
+Se podra seleccionar la orden y marcarla como en-curso. 
+PUT /set-orden-como-en-curso
+
+seteara la orden seleccionada como en-curso.
+
+PUT /set-orden-entregable
+El backend debe:
+marcar la orden como cocinada pero no entregada. 
+adicionalmente debera restar 1pt de stock a cada ingrediente que esta en el item de menu.
+
+--SERVICIO DE MESA
+
+GET /get-ordenes-entregables
+se manda en body
+{
+    "PK del empleado"
+}
+mostrara todas las ordenes entregables de esta persona. 
+
+PUT /set-orden-entregada
+marcara la orden como entregada al cliente.
+En este mundo mitico el cliente esta disfrutando su 炒饭 o su 杂碎
+
+
+Tablas miscelaneas que tendran un crud basico. 
+Estas seran acceddidas desde un portal cuando el tipoEmpleado = admin.
+El login para los 3 sera igual. 
+Estados_orden. 
+Estados_mesa.
+Mesas. 
+
+--menu
+Se habalra de este mas tarde. 
