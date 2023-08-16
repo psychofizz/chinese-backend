@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente extends Personas{
     @Id
     private int id;
 
