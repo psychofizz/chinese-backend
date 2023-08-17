@@ -8,6 +8,6 @@ import hn.unah.lenguajes.chinese.models.Mesas;
 
 public interface MesasRepository extends CrudRepository<Mesas, Integer> {
 
-    List<Mesas> findByEstadoMesaEstadoMesa(String estado);
+    List<Mesas> findByEstadoMesaEstado(String estadoMesa);
 
 }

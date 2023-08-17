@@ -28,7 +28,7 @@ public class MesasImpl implements MesasService {
 
     @Override
     public List<Mesas> getMesasPorEstado(String estado) {
-        return mesasRepository.findByEstadoMesaEstadoMesa(estado);
+        return mesasRepository.findByEstadoMesaEstado(estado);
     }
 
     @Override

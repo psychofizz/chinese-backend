@@ -42,7 +42,7 @@ public class OrdenImpl implements OrdenService {
         Optional<Ordenes> ordenOptional = ordenesRepository.findById(id_orden);
         if (ordenOptional.isPresent()) {
             Ordenes orden = ordenOptional.get();
-            if (orden.getEstado_orden().getEstado_orden() == "Recibida") {
+            if (orden.getEstado_orden().getEstado() == "Recibida") {
                 return "No se puede cancelar la orden";
             } else {
                 ordenesRepository.deleteById(id_orden);
@@ -78,7 +78,7 @@ public class OrdenImpl implements OrdenService {
     @Override
     public String avanzarOrdenChef(int id_orden) {
         Optional<Ordenes> orden = ordenesRepository.findById(id_orden);
-        Estado_orden estado_orden = estadoOrdenRepostory.findByEstadoOrden("En Curso");
+        Estado_orden estado_orden = estadoOrdenRepostory.findByEstado("En Curso");
 
         if (orden.isPresent()) {
             Ordenes ordenPresente = orden.get();
@@ -93,7 +93,7 @@ public class OrdenImpl implements OrdenService {
     @Override
     public String avanzarOrdenMesero(int id_orden) {
         Optional<Ordenes> orden = ordenesRepository.findById(id_orden);
-        Estado_orden estado_orden = estadoOrdenRepostory.findByEstadoOrden("Entregable");
+        Estado_orden estado_orden = estadoOrdenRepostory.findByEstado("Entregable");
 
         if (orden.isPresent()) {
             Ordenes ordenPresente = orden.get();
@@ -108,7 +108,7 @@ public class OrdenImpl implements OrdenService {
     @Override
     public String avanzarOrdenPago(int id_orden) {
         Optional<Ordenes> orden = ordenesRepository.findById(id_orden);
-        Estado_orden estado_orden = estadoOrdenRepostory.findByEstadoOrden("Entregable");
+        Estado_orden estado_orden = estadoOrdenRepostory.findByEstado("Entregable");
 
         if (orden.isPresent()) {
             Ordenes ordenPresente = orden.get();

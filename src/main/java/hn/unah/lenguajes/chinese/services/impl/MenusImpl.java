@@ -1,17 +1,14 @@
 package hn.unah.lenguajes.chinese.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import hn.unah.lenguajes.chinese.models.Ingredientes;
 import hn.unah.lenguajes.chinese.models.Menus;
-import hn.unah.lenguajes.chinese.models.menu_ingredientes;
+import hn.unah.lenguajes.chinese.models.MenuIngredientes;
 import hn.unah.lenguajes.chinese.repositories.MenuIngredientesRepository;
 import hn.unah.lenguajes.chinese.repositories.MenusRepository;
 import hn.unah.lenguajes.chinese.services.MenusService;
@@ -24,30 +21,6 @@ public class MenusImpl implements MenusService {
     private MenusRepository menuRepo;
 
     @Override
-    public List<Menus> getMenuDisponible() {
-        List<Menus> availableMenus = new ArrayList<>();
-
-        List<Object[]> menuIngredientesStock = menuIngredientesRepo.findMenuIngredientesStockAboveZero();
-
-        // Group the results by menu ID for efficient processing
-        Map<Integer, List<Object[]>> groupedStockByMenuId = menuIngredientesStock.stream()
-                .collect(Collectors.groupingBy(arr -> (Integer) arr[0]));
-
-        for (Map.Entry<Integer, List<Object[]>> entry : groupedStockByMenuId.entrySet()) {
-            boolean allIngredientsAboveZero = entry.getValue().stream()
-                    .allMatch(arr -> (int) arr[1] > 0);
-
-            if (allIngredientsAboveZero) {
-                Menus menu = new Menus();
-                menu.setId(entry.getKey());
-                availableMenus.add(menu);
-            }
-        }
-
-        return availableMenus;
-    }
-
-    @Override
     public List<Menus> getMenuTodo() {
         return (List<Menus>) menuRepo.findAll();
     }
@@ -57,7 +30,7 @@ public class MenusImpl implements MenusService {
         Menus savedMenu = menuRepo.save(menu);
 
         for (Ingredientes ingrediente : arregloIngredientes) {
-            menu_ingredientes menuIngrediente = new menu_ingredientes();
+            MenuIngredientes menuIngrediente = new MenuIngredientes();
             menuIngrediente.setMenus(savedMenu);
             menuIngrediente.setIngredientes(ingrediente);
             menuIngrediente.setCantidad(1);
@@ -81,7 +54,7 @@ public class MenusImpl implements MenusService {
             menuIngredientesRepo.deleteByMenus(existingMenu);
 
             for (Ingredientes ingrediente : arregloIngredientes) {
-                menu_ingredientes menuIngrediente = new menu_ingredientes();
+                MenuIngredientes menuIngrediente = new MenuIngredientes();
                 menuIngrediente.setMenus(existingMenu);
                 menuIngrediente.setIngredientes(ingrediente);
                 menuIngrediente.setCantidad(1); // Set the desired quantity here
@@ -107,6 +80,12 @@ public class MenusImpl implements MenusService {
         } else {
             return "Menu item not found.";
         }
+    }
+
+    @Override
+    public List<Menus> getMenuDisponible() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMenuDisponible'");
     }
 
 }

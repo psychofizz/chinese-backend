@@ -1,15 +1,11 @@
 package hn.unah.lenguajes.chinese.repositories;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import hn.unah.lenguajes.chinese.models.Menus;
-import hn.unah.lenguajes.chinese.models.menu_ingredientes;
+import hn.unah.lenguajes.chinese.models.MenuIngredientes;
 
-public interface MenuIngredientesRepository extends CrudRepository<menu_ingredientes, Integer> {
-
-    List<Object[]> findMenuIngredientesStockAboveZero();
+public interface MenuIngredientesRepository extends CrudRepository<MenuIngredientes, Integer> {
 
     void deleteByMenus(Menus existingMenu);
 

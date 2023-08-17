@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hn.unah.lenguajes.chinese.models.Factura;
@@ -23,13 +25,13 @@ public class FacturasController {
         return facturasImpl.getFacturas();
     }
 
-    @GetMapping("/cliente/{email}")
-    private List<Factura> getFacturasCliente(@PathVariable String email) {
+    @GetMapping("/cliente")
+    public List<Factura> getFacturasCliente(@RequestParam String email) {
         return facturasImpl.getFacturasPorCliente(email);
     }
 
-    @GetMapping("/cliente/mas-reciente/email/{email}")
-    private Optional<Factura> getFacturaMasReciente(@PathVariable String email) {
+    @GetMapping("/mas-reciente")
+    public Optional<Factura> getFacturaMasReciente(@RequestParam String email) {
         return facturasImpl.getFacturaMasReciente(email);
     }
 }
