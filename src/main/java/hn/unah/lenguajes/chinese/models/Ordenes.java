@@ -33,6 +33,10 @@ public class Ordenes {
     @JoinColumn(name = "id_chef", referencedColumnName = "id")
     private Empleados chef;
 
+    @ManyToOne
+    @JoinColumn(name = "id_mesero")
+    private Empleados mesero;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_mesa", referencedColumnName = "id")
     private Mesas mesa;
