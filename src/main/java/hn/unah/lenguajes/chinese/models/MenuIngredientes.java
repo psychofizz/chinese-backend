@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "menu_ingredientes")
-public class menu_ingredientes {
+public class MenuIngredientes {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,7 @@ public class menu_ingredientes {
     @ManyToOne
     @JoinColumn(name = "id_ingrediente", referencedColumnName = "id")
     private Ingredientes ingredientes;
+
+    private int cantidad;
 
 }

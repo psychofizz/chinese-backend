@@ -18,5 +18,5 @@ public class Estado_orden {
     @Id
     @Column(name = "id")
     private int id;
-    private String estado_orden;
+    private String estado;
 }

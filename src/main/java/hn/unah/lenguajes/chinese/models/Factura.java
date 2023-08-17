@@ -22,6 +22,7 @@ import lombok.Setter;
 public class Factura {
     @Id
     @Column(name = "id")
+
     private int id;
 
     @OneToOne

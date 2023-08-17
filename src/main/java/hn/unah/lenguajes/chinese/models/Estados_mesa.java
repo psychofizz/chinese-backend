@@ -20,5 +20,5 @@ public class Estados_mesa {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String estado_mesa;
+    private String estado;
 }
