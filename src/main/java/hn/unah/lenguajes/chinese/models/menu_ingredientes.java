@@ -32,4 +32,6 @@ public class menu_ingredientes {
     @JoinColumn(name = "id_ingrediente", referencedColumnName = "id")
     private Ingredientes ingredientes;
 
+    private int cantidad;
+
 }
