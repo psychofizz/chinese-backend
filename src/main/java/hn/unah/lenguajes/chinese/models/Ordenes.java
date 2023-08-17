@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,10 +33,12 @@ public class Ordenes {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_chef", referencedColumnName = "id")
+    @JsonIgnore
     private Empleados chef;
 
     @ManyToOne
     @JoinColumn(name = "id_mesero")
+    @JsonIgnore
     private Empleados mesero;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -43,6 +47,7 @@ public class Ordenes {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_estado_orden", referencedColumnName = "id")
+    @JsonIgnore
     private Estado_orden estado_orden;
 
     @Column(name = "fecha_creada")

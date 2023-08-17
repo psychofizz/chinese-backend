@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import hn.unah.lenguajes.chinese.models.Contenido_orden;
+import hn.unah.lenguajes.chinese.models.Empleados;
 import hn.unah.lenguajes.chinese.models.Estado_orden;
 import hn.unah.lenguajes.chinese.models.Factura;
 import hn.unah.lenguajes.chinese.models.Menus;
 import hn.unah.lenguajes.chinese.models.Ordenes;
 import hn.unah.lenguajes.chinese.repositories.ContenidoOrdenRepository;
+import hn.unah.lenguajes.chinese.repositories.EmpleadosRepository;
 import hn.unah.lenguajes.chinese.repositories.EstadoOrdenRepostory;
 import hn.unah.lenguajes.chinese.repositories.OrdenesRepository;
 import hn.unah.lenguajes.chinese.services.OrdenService;
@@ -26,9 +28,12 @@ public class OrdenImpl implements OrdenService {
     @Autowired
     private EstadoOrdenRepostory estadoOrdenRepostory;
 
+    @Autowired
+    private EmpleadosRepository empleadosRepository;
+
     @Override
     public List<Ordenes> getOrdenesDeClientePorEmail(String email) {
-        return ordenesRepository.findAllByCliente_Personas_Correo(email);
+        return ordenesRepository.findAllByClienteCorreo(email);
 
     }
 
@@ -54,25 +59,17 @@ public class OrdenImpl implements OrdenService {
     }
 
     @Override
-    public String postOrden(Ordenes ordenes, List<Menus> arregloMenu) {
+    public Ordenes postOrden(Ordenes ordenes) {
         if (ordenes == null) {
-            return "Error: Ordenes object is null.";
+            return null;
         }
+        Empleados chef = empleadosRepository.findRandomByTipoEmpleado("Chef");
+        Empleados mesero = empleadosRepository.findRandomByTipoEmpleado("Mesero");
 
-        if (arregloMenu == null || arregloMenu.isEmpty()) {
-            return "Error: arregloMenu is null or empty.";
-        }
+        ordenes.setChef(chef);
+        ordenes.setMesero(mesero);
 
-        Ordenes ordenGuardada = ordenesRepository.save(ordenes);
-
-        for (Menus menu : arregloMenu) {
-            Contenido_orden cont_orden = new Contenido_orden();
-            cont_orden.setCantidad(1);
-            cont_orden.setOrdenes(ordenGuardada);
-            cont_orden.setMenu(menu);
-            contenidoOrdenRepository.save(cont_orden);
-        }
-        return "orden guardada";
+        return ordenesRepository.save(ordenes);
     }
 
     @Override

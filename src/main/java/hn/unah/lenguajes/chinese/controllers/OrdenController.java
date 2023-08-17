@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hn.unah.lenguajes.chinese.models.Menus;
 import hn.unah.lenguajes.chinese.models.Ordenes;
 import hn.unah.lenguajes.chinese.services.impl.OrdenImpl;
 
@@ -54,9 +53,9 @@ public class OrdenController {
         return ordenImpl.avanzarOrdenPago(id);
     }
 
-    @PostMapping("/")
-    public String postearOrden(@RequestBody Ordenes ordenes, List<Menus> arregloMenus) {
-        return ordenImpl.postOrden(ordenes, arregloMenus);
+    @PostMapping("/crear")
+    public Ordenes postearOrden(@RequestBody Ordenes ordenes) {
+        return ordenImpl.postOrden(ordenes);
     }
 
 }

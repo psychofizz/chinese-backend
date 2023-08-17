@@ -23,12 +23,12 @@ public class FacturasImpl implements FacturaService {
 
     @Override
     public List<Factura> getFacturasPorCliente(String email) {
-        return (List<Factura>) facturaRepo.findAllByCliente_Personas_Correo(email);
+        return (List<Factura>) facturaRepo.findAllByClienteCorreo(email);
     }
 
     @Override
     public Optional<Factura> getFacturaMasReciente(String email) {
-        return facturaRepo.findTopByCliente_Personas_CorreoOrderByFechaEmitidaDesc(email);
+        return facturaRepo.findTopByClienteCorreoOrderByFechaEmitidaDesc(email);
     }
 
 }

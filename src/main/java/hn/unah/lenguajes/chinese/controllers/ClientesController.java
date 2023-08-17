@@ -16,18 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import hn.unah.lenguajes.chinese.models.Cliente;
 import hn.unah.lenguajes.chinese.services.ClientesService;
 
-
-
 @RestController
 @RequestMapping("/clientes")
 public class ClientesController {
-    
-      private final ClientesService clientesService;
 
     @Autowired
-    public ClientesController(ClientesService clientesService) {
-        this.clientesService = clientesService;
-    }
+    private ClientesService clientesService;
 
     @PostMapping("/crearCliente")
     public ResponseEntity<String> crearCliente(@RequestBody Cliente cliente) {
@@ -42,7 +36,8 @@ public class ClientesController {
             }
         } catch (Exception e) {
             System.err.println("Error al crear el cliente: " + e.getMessage());
-            return new ResponseEntity<>("Error al crear el cliente: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error al crear el cliente: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,7 +64,8 @@ public class ClientesController {
             }
         } catch (Exception e) {
             System.err.println("Error al borrar el cliente: " + e.getMessage());
-            return new ResponseEntity<>("Error al borrar el cliente: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error al borrar el cliente: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,6 +74,5 @@ public class ClientesController {
         List<Cliente> clientes = clientesService.regresarTodo();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
-
 
 }

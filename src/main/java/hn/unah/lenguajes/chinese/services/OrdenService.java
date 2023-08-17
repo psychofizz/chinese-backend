@@ -1,8 +1,6 @@
 package hn.unah.lenguajes.chinese.services;
 
 import java.util.List;
-
-import hn.unah.lenguajes.chinese.models.Menus;
 import hn.unah.lenguajes.chinese.models.Ordenes;
 
 public interface OrdenService {
@@ -13,7 +11,7 @@ public interface OrdenService {
 
     public String cancelacionOrden(int id_orden);
 
-    public String postOrden(Ordenes ordenes, List<Menus> arregloMenu);
+    public Ordenes postOrden(Ordenes ordenes);
 
     public String avanzarOrdenChef(int id_orden);
 

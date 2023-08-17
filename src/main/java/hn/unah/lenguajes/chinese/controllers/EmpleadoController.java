@@ -13,20 +13,20 @@ import java.util.List;
 @RequestMapping("/empleados")
 public class EmpleadoController {
 
-    private final EmpleadoService empleadoService;
-
     @Autowired
+    EmpleadoService empleadoService;
+
     public EmpleadoController(EmpleadoService empleadoService) {
         this.empleadoService = empleadoService;
     }
 
-    @PostMapping("/GuardarEmpleado")
+    @PostMapping("/guardar")
     public ResponseEntity<Empleados> crearEmpleado(@RequestBody Empleados empleado) {
         Empleados nuevoEmpleado = empleadoService.guardarEmpleado(empleado);
         return new ResponseEntity<>(nuevoEmpleado, HttpStatus.CREATED);
     }
 
-    @GetMapping("/ObtenerPorId/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Empleados> obtenerEmpleadoPorId(@PathVariable int id) {
         Empleados empleado = empleadoService.buscarEmpleadoPorId(id);
         if (empleado != null) {
@@ -36,7 +36,7 @@ public class EmpleadoController {
         }
     }
 
-    @DeleteMapping("/BorrarporId/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<Void> borrarEmpleadoPorId(@PathVariable int id) {
         Empleados empleadoBorrado = empleadoService.borrarEmpleadoPorId(id);
         if (empleadoBorrado != null) {
@@ -46,7 +46,7 @@ public class EmpleadoController {
         }
     }
 
-    @PutMapping("(/ModificarporId/{id}")
+    @PutMapping("/id/{id}")
     public ResponseEntity<Empleados> actualizarEmpleado(@PathVariable int id, @RequestBody Empleados empleado) {
         Empleados empleadoActualizado = empleadoService.actualizarEmpleado(id, empleado);
         if (empleadoActualizado != null) {
@@ -56,9 +56,14 @@ public class EmpleadoController {
         }
     }
 
-    @GetMapping("/Empleados")
+    @GetMapping("/todo-empleado")
     public ResponseEntity<List<Empleados>> obtenerTodosEmpleados() {
         List<Empleados> empleados = empleadoService.obtenerTodosEmpleados();
         return new ResponseEntity<>(empleados, HttpStatus.OK);
+    }
+
+    @GetMapping("/tipo-empleado/chef")
+    public Empleados chefEmpleado() {
+        return empleadoService.regresarEmpleadoPorTipoEmpleado("Chef");
     }
 }

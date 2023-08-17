@@ -8,6 +8,6 @@ import hn.unah.lenguajes.chinese.models.Ordenes;
 
 public interface OrdenesRepository extends CrudRepository<Ordenes, Integer> {
 
-    List<Ordenes> findAllByCliente_Personas_Correo(String email);
+    List<Ordenes> findAllByClienteCorreo(String email);
 
 }

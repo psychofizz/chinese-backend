@@ -9,8 +9,8 @@ import hn.unah.lenguajes.chinese.models.Factura;
 
 public interface FacturaRepository extends CrudRepository<Factura, Integer> {
 
-    List<Factura> findAllByCliente_Personas_Correo(String email);
+    List<Factura> findAllByClienteCorreo(String email);
 
-    Optional<Factura> findTopByCliente_Personas_CorreoOrderByFechaEmitidaDesc(String email);
+    Optional<Factura> findTopByClienteCorreoOrderByFechaEmitidaDesc(String email);
 
 }
