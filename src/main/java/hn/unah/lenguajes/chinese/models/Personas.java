@@ -36,4 +36,8 @@ public class Personas {
     @JsonBackReference // Maneja la referencia de vuelta en la serialización
     private Cliente cliente;
 
+    @OneToOne(mappedBy = "personas")
+    @JsonBackReference // Maneja la referencia de vuelta en la serialización
+    private Empleados empleado;
+
 }
