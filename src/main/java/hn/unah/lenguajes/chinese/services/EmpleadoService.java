@@ -16,6 +16,4 @@ public interface EmpleadoService {
 
     List<Empleados> obtenerTodosEmpleados();
 
-    Empleados regresarEmpleadoPorTipoEmpleado(String tipo);
-
 }

@@ -62,8 +62,4 @@ public class EmpleadoController {
         return new ResponseEntity<>(empleados, HttpStatus.OK);
     }
 
-    @GetMapping("/tipo-empleado/chef")
-    public Empleados chefEmpleado() {
-        return empleadoService.regresarEmpleadoPorTipoEmpleado("Chef");
-    }
 }

@@ -66,9 +66,4 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     }
 
-    @Override
-    public Empleados regresarEmpleadoPorTipoEmpleado(String tipo) {
-        return empleadoRepository.findRandomByTipoEmpleado(tipo);
-    }
-
 }

@@ -63,11 +63,6 @@ public class OrdenImpl implements OrdenService {
         if (ordenes == null) {
             return null;
         }
-        Empleados chef = empleadosRepository.findRandomByTipoEmpleado("Chef");
-        Empleados mesero = empleadosRepository.findRandomByTipoEmpleado("Mesero");
-
-        ordenes.setChef(chef);
-        ordenes.setMesero(mesero);
 
         return ordenesRepository.save(ordenes);
     }
