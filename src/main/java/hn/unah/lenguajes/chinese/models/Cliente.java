@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +16,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente extends Personas{
     @Id
     private int id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "id")
+    @JsonIgnore
     private Personas personas;
 
     private boolean cliente_preferencial;

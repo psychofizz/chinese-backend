@@ -112,21 +112,3 @@ Empleados POST para registro por Tipo_empleado = admin, GET para login.
 Tipo_empleados (Chef, Mesero, Admin, Delivery)
 Tipo_pago (Efectivo, Tarjeta, Paypal)
 
-
-
-Ingredientes CRUD, 5 operaciones. GET ID GET ALL, PUT, POST, DELETE
-Menu_ingredientes CRUD GET ID GET ALL, PUT, POST, DELETE
-Mesas CRUD GET estado-mesa, GET ALL, GET ID, PUT, POST, DELETE
-
-Estados_mesa
-Menus CRUD GET ID GET ALL, PUT, POST, DELETE
-Estado_orden (Recibido, En Curso, Entregable, Entregado A Mesa, Facturado)
-Orden Lo creado arriba, GET ALL, GET ID, DELETE-especializado-devolucion, DELETE
-Factura GET por correo la factura mas reciente, GET ALL por correo. 
-
-
-
-
-
-
-
