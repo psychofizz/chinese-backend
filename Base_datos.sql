@@ -1,20 +1,4 @@
-CREATE TABLE personas (
-  id INT PRIMARY KEY,
-  nombre VARCHAR(100),
-  apellido VARCHAR(100),
-  correo VARCHAR(255),
-  contrasenia VARCHAR(255)
-);
 
-CREATE TABLE clientes (
-  id INT PRIMARY KEY REFERENCES personas(id),
-  cliente_preferencial BOOLEAN
-);
-
-CREATE TABLE empleados (
-  id INT PRIMARY KEY REFERENCES personas(id),
-  tipo_empleado VARCHAR(50)
-);
 
 CREATE TABLE tipos_empleados (
   id INT PRIMARY KEY,
