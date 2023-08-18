@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import hn.unah.lenguajes.chinese.models.Ingredientes;
 import hn.unah.lenguajes.chinese.models.Menus;
 import hn.unah.lenguajes.chinese.models.MenuIngredientes;
+import hn.unah.lenguajes.chinese.repositories.IngredientesRepository;
 import hn.unah.lenguajes.chinese.repositories.MenuIngredientesRepository;
 import hn.unah.lenguajes.chinese.repositories.MenusRepository;
 import hn.unah.lenguajes.chinese.services.MenusService;
@@ -20,52 +21,18 @@ public class MenusImpl implements MenusService {
     @Autowired
     private MenusRepository menuRepo;
 
+    @Autowired
+    private IngredientesRepository ingredientesRepository;
+
     @Override
-    public List<Menus> getMenuTodo() {
-        return (List<Menus>) menuRepo.findAll();
+    public List<MenuIngredientes> getMenuTodo() {
+        return (List<MenuIngredientes>) menuIngredientesRepo.findAll();
     }
 
     @Override
-    public String guardarMenuItem(Menus menu, List<Ingredientes> arregloIngredientes) {
-        Menus savedMenu = menuRepo.save(menu);
-
-        for (Ingredientes ingrediente : arregloIngredientes) {
-            MenuIngredientes menuIngrediente = new MenuIngredientes();
-            menuIngrediente.setMenus(savedMenu);
-            menuIngrediente.setIngredientes(ingrediente);
-            menuIngrediente.setCantidad(1);
-
-            menuIngredientesRepo.save(menuIngrediente);
-        }
-
+    public String guardarMenuItem(Menus menu) {
+        menuRepo.save(menu);
         return "Menu item and ingredients saved successfully.";
-    }
-
-    @Override
-    public String editarMenuItem(int id_menu, Menus menu, List<Ingredientes> arregloIngredientes) {
-        Optional<Menus> existingMenuOptional = menuRepo.findById(id_menu);
-
-        if (existingMenuOptional.isPresent()) {
-            Menus existingMenu = existingMenuOptional.get();
-            existingMenu.setNombre(menu.getNombre());
-            existingMenu.setPrecio(menu.getPrecio());
-            menuRepo.save(existingMenu);
-
-            menuIngredientesRepo.deleteByMenus(existingMenu);
-
-            for (Ingredientes ingrediente : arregloIngredientes) {
-                MenuIngredientes menuIngrediente = new MenuIngredientes();
-                menuIngrediente.setMenus(existingMenu);
-                menuIngrediente.setIngredientes(ingrediente);
-                menuIngrediente.setCantidad(1); // Set the desired quantity here
-
-                menuIngredientesRepo.save(menuIngrediente);
-            }
-
-            return "Menu item and ingredients updated successfully.";
-        } else {
-            return "Menu item not found.";
-        }
     }
 
     @Override
@@ -86,6 +53,24 @@ public class MenusImpl implements MenusService {
     public List<Menus> getMenuDisponible() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getMenuDisponible'");
+    }
+
+    @Override
+    public String agregarIngredientesAMenu(int id_menu, int ingrediente) {
+        Optional<Menus> menu_opt = menuRepo.findById(id_menu);
+        Optional<Ingredientes> ingredientes_opt = ingredientesRepository.findById(ingrediente);
+        if (menu_opt.isPresent() && ingredientes_opt.isPresent()) {
+            Menus menu_item = menu_opt.get();
+            Ingredientes ingredientes = ingredientes_opt.get();
+            MenuIngredientes menuing = new MenuIngredientes();
+            menuing.setCantidad(1);
+            menuing.setIngredientes(ingredientes);
+            menuing.setMenus(menu_item);
+            menuIngredientesRepo.save(menuing);
+            return "Se guardo el ingrediente con el menu";
+        } else {
+            return "No se encontro por ID menu o ingrediente";
+        }
     }
 
 }

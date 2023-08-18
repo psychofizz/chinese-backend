@@ -2,18 +2,18 @@ package hn.unah.lenguajes.chinese.services;
 
 import java.util.List;
 
-import hn.unah.lenguajes.chinese.models.Ingredientes;
+import hn.unah.lenguajes.chinese.models.MenuIngredientes;
 import hn.unah.lenguajes.chinese.models.Menus;
 
 public interface MenusService {
 
     public List<Menus> getMenuDisponible();
 
-    public List<Menus> getMenuTodo();
+    public List<MenuIngredientes> getMenuTodo();
 
-    public String guardarMenuItem(Menus menu, List<Ingredientes> arregloIngredientes);
+    public String guardarMenuItem(Menus menu);
 
-    public String editarMenuItem(int id_menu, Menus menu, List<Ingredientes> arregloIngredientes);
+    public String agregarIngredientesAMenu(int id_menu, int ingrediente);
 
     public String borrarMenuItem(int id_menu);
 

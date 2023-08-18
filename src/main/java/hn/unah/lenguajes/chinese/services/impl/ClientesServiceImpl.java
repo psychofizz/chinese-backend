@@ -1,6 +1,5 @@
 package hn.unah.lenguajes.chinese.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hn.unah.lenguajes.chinese.models.Cliente;
@@ -18,7 +17,6 @@ public class ClientesServiceImpl implements ClientesService {
     private final PersonasRepository personaRepository;
     private final ClientesRepository clientesRepository;
 
-    @Autowired
     public ClientesServiceImpl(PersonasRepository personaRepository, ClientesRepository clientesRepository) {
         this.personaRepository = personaRepository;
         this.clientesRepository = clientesRepository;

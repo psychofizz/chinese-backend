@@ -1,5 +1,6 @@
 package hn.unah.lenguajes.chinese.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,17 +28,17 @@ public class MesasController {
         return mesasImpl.getMesaPorId(id);
     }
 
-    @GetMapping("/")
+    @GetMapping("/get")
     public List<Mesas> getMesas() {
         return mesasImpl.getMesas();
     }
 
-    @GetMapping("/estado/{estado}")
-    public List<Mesas> getMesasPorEstado(@PathVariable String estado) {
-        return mesasImpl.getMesasPorEstado(estado);
+    @GetMapping("/estado/disponible")
+    public ArrayList<Mesas> getMesasPorEstado() {
+        return mesasImpl.getMesasDisponibles();
     }
 
-    @PostMapping("/")
+    @PostMapping("/agregar")
     public Mesas agregarMesas(@RequestBody Mesas mesa) {
         return mesasImpl.agregarMesa(mesa);
     }

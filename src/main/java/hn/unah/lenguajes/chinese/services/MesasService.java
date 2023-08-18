@@ -11,7 +11,7 @@ public interface MesasService {
 
     public List<Mesas> getMesas();
 
-    public List<Mesas> getMesasPorEstado(String estado);
+    public List<Mesas> getMesasDisponibles();
 
     public Mesas agregarMesa(Mesas mesa);
 

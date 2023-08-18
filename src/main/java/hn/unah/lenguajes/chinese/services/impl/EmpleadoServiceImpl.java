@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import hn.unah.lenguajes.chinese.models.Empleados;
 
 import hn.unah.lenguajes.chinese.repositories.EmpleadosRepository;
-import hn.unah.lenguajes.chinese.repositories.PersonasRepository;
 import hn.unah.lenguajes.chinese.services.EmpleadoService;
 
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Autowired
     private EmpleadosRepository empleadoRepository;
-    @Autowired
-    private PersonasRepository personasRepository;
 
     @Override
     public Empleados guardarEmpleado(Empleados empleado) {

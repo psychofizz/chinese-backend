@@ -1,12 +1,15 @@
 package hn.unah.lenguajes.chinese.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import hn.unah.lenguajes.chinese.models.Estados_mesa;
 import hn.unah.lenguajes.chinese.models.Mesas;
+import hn.unah.lenguajes.chinese.repositories.EstadoMesaRepository;
 import hn.unah.lenguajes.chinese.repositories.MesasRepository;
 import hn.unah.lenguajes.chinese.services.MesasService;
 
@@ -15,6 +18,8 @@ public class MesasImpl implements MesasService {
 
     @Autowired
     private MesasRepository mesasRepository;
+    @Autowired
+    private EstadoMesaRepository estadoMesaRepository;
 
     @Override
     public Optional<Mesas> getMesaPorId(int id_mesa) {
@@ -27,13 +32,27 @@ public class MesasImpl implements MesasService {
     }
 
     @Override
-    public List<Mesas> getMesasPorEstado(String estado) {
-        return mesasRepository.findByEstadoMesaEstado(estado);
+    public ArrayList<Mesas> getMesasDisponibles() {
+        List<Mesas> mesas = (List<Mesas>) mesasRepository.findAll();
+        ArrayList<Mesas> mesasDisponibles = new ArrayList<Mesas>();
+        for (Mesas mesa : mesas) {
+            if ("Disponible".equals(mesa.getEstadoMesa().getEstado())) {
+                mesasDisponibles.add(mesa);
+            }
+        }
+        return mesasDisponibles;
     }
 
     @Override
     public Mesas agregarMesa(Mesas mesa) {
-        return mesasRepository.save(mesa);
+        Optional<Estados_mesa> estados_mesa = estadoMesaRepository.findById(1);
+
+        if (estados_mesa.isPresent()) {
+            Estados_mesa est_mes = estados_mesa.get();
+            mesa.setEstadoMesa(est_mes);
+            return mesasRepository.save(mesa);
+        }
+        return null;
     }
 
     @Override

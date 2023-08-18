@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hn.unah.lenguajes.chinese.models.Ingredientes;
+import hn.unah.lenguajes.chinese.models.MenuIngredientes;
 import hn.unah.lenguajes.chinese.models.Menus;
 import hn.unah.lenguajes.chinese.services.impl.MenusImpl;
 
@@ -27,19 +26,18 @@ public class MenusController {
     }
 
     @GetMapping("/todo")
-    public List<Menus> getMenuTodo() {
+    public List<MenuIngredientes> getMenuTodo() {
         return menusImpl.getMenuTodo();
     }
 
-    @PostMapping("/guardar-menu-item")
-    public String guardarMenuItem(@RequestBody Menus menu_item, @RequestBody List<Ingredientes> arregloIngredientes) {
-        return menusImpl.guardarMenuItem(menu_item, arregloIngredientes);
+    @PostMapping("/agregar-ingrediente-menu/id-menu/{id_menu}/id-ingrediente/{id_ingrediente}")
+    public String guardarMenuItem(@PathVariable int id_menu, @PathVariable int id_ingrediente) {
+        return menusImpl.agregarIngredientesAMenu(id_menu, id_ingrediente);
     }
 
-    @PutMapping("/editar-item/{id_menu}")
-    public String editarMenuItem(@PathVariable int id_menu, @RequestBody Menus menu,
-            @RequestBody List<Ingredientes> arregloIngredientes) {
-        return menusImpl.editarMenuItem(0, menu, arregloIngredientes);
+    @PostMapping("/guardar-menu")
+    public String guardarMenu(@RequestBody Menus menus) {
+        return menusImpl.guardarMenuItem(menus);
     }
 
 }
