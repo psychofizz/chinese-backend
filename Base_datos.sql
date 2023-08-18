@@ -1,84 +1,89 @@
-CREATE TABLE personas (
-  id integer PRIMARY KEY,
-  nombre nvarchar(255),
-  apellido nvarchar(255),
-  correo nvarchar(255),
-  contrasenia nvarchar(255)
+
+
+CREATE TABLE tipos_empleados (
+  id INT PRIMARY KEY,
+  tipo_empleado VARCHAR(50)
 );
-
-
-CREATE TABLE clientes (
-  id integer PRIMARY KEY REFERENCES personas(id),
-  cliente_preferencial bit
-);
-
-
-CREATE TABLE tipo_empleados (
-  id integer PRIMARY KEY,
-  tipo_empleado nvarchar(255),
-  salario integer
-);
-
-
-CREATE TABLE empleados (
-  id integer PRIMARY KEY REFERENCES personas(id),
-  tipo_empleado integer REFERENCES tipo_empleados(id)
-);
-
 
 CREATE TABLE estados_mesa (
-  id integer PRIMARY KEY,
-  estado_mesa nvarchar(255)
+  id INT PRIMARY KEY,
+  estado VARCHAR(50)
 );
-
 
 CREATE TABLE mesas (
-  id integer PRIMARY KEY,
-  capacidad integer,
-  ubicacion nvarchar(255),
-  id_estado_mesa integer REFERENCES estados_mesas(id)
+  id INT PRIMARY KEY,
+  capacidad INT,
+  id_estado_mesa INT REFERENCES estados_mesa(id)
 );
 
-
-CREATE TABLE estados_orden(
-  id integer PRIMARY KEY,
-  estado_orden nvarchar(255)
+CREATE TABLE estados_orden (
+  id INT PRIMARY KEY,
+  estado VARCHAR(50)
 );
-
 
 CREATE TABLE ordenes (
-  id integer PRIMARY KEY,
-  id_cliente integer,
-  id_chef integer,
-  id_mesero integer,
-  id_mesa integer
+  id INT PRIMARY KEY,
+  fecha_creada DATE,
+  id_cliente INT REFERENCES clientes(id),
+  id_chef INT REFERENCES empleados(id),
+  id_mesero INT REFERENCES empleados(id),
+  id_mesa INT REFERENCES mesas(id),
+  id_estado_orden INT REFERENCES estados_orden(id)
 );
 
-
 CREATE TABLE menus (
-  id integer PRIMARY KEY,
-  nombre nvarchar(255),
-  precio decimal
+  id INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  precio DECIMAL(10, 2)
 );
 
 CREATE TABLE ingredientes (
-  id integer PRIMARY KEY,
-  nombre nvarchar(255),
-  stock integer
+  id INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  stock INT
 );
-
 
 CREATE TABLE menu_ingredientes (
-  id integer PRIMARY KEY,
-  id_menu integer,
-  id_ingrediente integer,
-  cantidad integer
+  id INT PRIMARY KEY,
+  id_menu INT REFERENCES menus(id),
+  id_ingrediente INT REFERENCES ingredientes(id),
+  cantidad INT
 );
-
 
 CREATE TABLE contenido_orden (
-  id integer PRIMARY KEY,
-  id_orden integer,
-  id_menu integer,
-  cantidad integer
+  id INT PRIMARY KEY,
+  id_orden INT,
+  id_menu INT,
+  cantidad INT
 );
+
+CREATE TABLE facturas (
+  id INT PRIMARY KEY, 
+  fecha_emitida DATE,
+  isv DECIMAL(10, 3),
+  sub_total DECIMAL(10, 3),
+  total DECIMAL(10, 3),
+  id_cliente INT REFERENCES clientes(id),
+  id_orden INT REFERENCES ordenes(id)
+);
+
+INSERT INTO tipos_empleados (id, tipo_empleado)
+VALUES
+  (1, 'Chef'),
+  (2, 'Mesero'),
+  (3, 'Admin');
+
+INSERT INTO estados_mesa (id, estado)
+VALUES
+  (1, 'Disponible'),
+  (2, 'Ocupada'),
+  (3, 'Reservada'),
+  (4, 'NoDisponible');
+
+INSERT INTO estados_orden (id, estado)
+VALUES 
+  (1, 'Recibida'),
+  (2, 'En Curso'),
+  (3, 'Entregable'),
+  (4, 'Entregado'),
+  (5, 'Pagado');

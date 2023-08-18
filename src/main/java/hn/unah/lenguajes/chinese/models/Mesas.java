@@ -24,9 +24,10 @@ public class Mesas {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String nombre;
     private int capacidad;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_estado_mesa", referencedColumnName = "id")
     private Estados_mesa estadoMesa;
 }

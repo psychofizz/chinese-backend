@@ -28,4 +28,8 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+### Cosas de macOS, DS_Store es un archivo escondido que macos genera para metadata de un folder.
+.DS_Store
 
+.vscode/launch.json
+.vscode/settings.json
