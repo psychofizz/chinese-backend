@@ -1,11 +1,10 @@
 package hn.unah.lenguajes.chinese.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hn.unah.lenguajes.chinese.models.Cliente;
-import hn.unah.lenguajes.chinese.models.Personas;
 import hn.unah.lenguajes.chinese.repositories.ClientesRepository;
-import hn.unah.lenguajes.chinese.repositories.PersonasRepository;
 import hn.unah.lenguajes.chinese.services.ClientesService;
 
 import java.util.List;
@@ -14,18 +13,11 @@ import java.util.Optional;
 @Service
 public class ClientesServiceImpl implements ClientesService {
 
-    private final PersonasRepository personaRepository;
-    private final ClientesRepository clientesRepository;
-
-    public ClientesServiceImpl(PersonasRepository personaRepository, ClientesRepository clientesRepository) {
-        this.personaRepository = personaRepository;
-        this.clientesRepository = clientesRepository;
-    }
+    @Autowired
+    private ClientesRepository clientesRepository;
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
-        Personas personaGuardada = personaRepository.save(cliente);
-        cliente.setId(personaGuardada.getId());
         return clientesRepository.save(cliente);
     }
 

@@ -11,19 +11,19 @@ CREATE TABLE clientes (
   cliente_preferencial BOOLEAN
 );
 
+CREATE TABLE empleados (
+  id INT PRIMARY KEY REFERENCES personas(id),
+  tipo_empleado VARCHAR(50)
+);
+
 CREATE TABLE tipos_empleados (
   id INT PRIMARY KEY,
   tipo_empleado VARCHAR(50)
 );
 
-CREATE TABLE empleados (
-  id INT PRIMARY KEY REFERENCES personas(id),
-  tipo_empleado INT REFERENCES tipo_empleados(id)
-);
-
 CREATE TABLE estados_mesa (
   id INT PRIMARY KEY,
-  estado_mesa VARCHAR(50)
+  estado VARCHAR(50)
 );
 
 CREATE TABLE mesas (
@@ -34,7 +34,7 @@ CREATE TABLE mesas (
 
 CREATE TABLE estados_orden (
   id INT PRIMARY KEY,
-  estado_orden VARCHAR(50)
+  estado VARCHAR(50)
 );
 
 CREATE TABLE ordenes (
@@ -83,23 +83,20 @@ CREATE TABLE facturas (
   id_orden INT REFERENCES ordenes(id)
 );
 
-CREATE TABLE
-
--- Initial data inserts
 INSERT INTO tipos_empleados (id, tipo_empleado)
 VALUES
   (1, 'Chef'),
   (2, 'Mesero'),
   (3, 'Admin');
 
-INSERT INTO estados_mesa (id, estado_mesa)
+INSERT INTO estados_mesa (id, estado)
 VALUES
   (1, 'Disponible'),
   (2, 'Ocupada'),
   (3, 'Reservada'),
   (4, 'NoDisponible');
 
-INSERT INTO estados_orden (id, estado_orden)
+INSERT INTO estados_orden (id, estado)
 VALUES 
   (1, 'Recibida'),
   (2, 'En Curso'),
